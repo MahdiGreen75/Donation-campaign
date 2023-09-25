@@ -5,10 +5,12 @@
 @tailwind utilities;
 
 * {
-    border: 1px solid #f0c5c5;
+   
     box-sizing: border-box !important;
 }
 
 body {
     font-family: 'Inter', sans-serif;
 }
+
+/*border: 1px solid #f0c5c5;*/

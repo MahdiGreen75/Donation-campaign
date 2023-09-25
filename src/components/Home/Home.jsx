@@ -2,10 +2,11 @@ import { useLoaderData } from "react-router-dom";
 import HomepageCard from "../HomepageCard/HomepageCard";
 
 
+
 const Home = () => {
     
-    const dataStr = useLoaderData()
-    const cards = JSON.parse(dataStr);
+    const cardsData = JSON.parse(useLoaderData());
+    
     
 
     return (
@@ -23,9 +24,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 px-5 sm:px-0	 gap-0 sm:gap-3 md:gap-3 lg:gap-5">
                 {
-                    cards.map(card => <HomepageCard key={card.id} {...card}></HomepageCard>)
+                    cardsData.map(card => <HomepageCard key={card.id} {...card}></HomepageCard>)
                 }
             </div>
         </>
