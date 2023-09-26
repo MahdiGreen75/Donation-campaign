@@ -1,5 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import {saveDataToLocalStorage, addToLocalStorage} from "../../utilites/localStorage"
+import {getStoredData, addToLocalStorage} from "../../utilites/localStorage";
+import toast, { Toaster } from 'react-hot-toast';
 
 const DonationDetails = () => {
     
@@ -23,12 +24,19 @@ const DonationDetails = () => {
     }
 
     const handleClick = () => {
-        
-        addToLocalStorage("donate", id);
+        const isDonated = getStoredData();
+        if(isDonated.includes(id)) {
+            toast("Thanks, you already have a donation.", {duration: 2000});
+            return;
+        }
+
+        toast.success("Thank you for donation.")
+        addToLocalStorage(id);
     }
 
     return (
         <div className="p-5 sm:p-0">
+            <Toaster></Toaster>
             <div className="relative  w-full  h-[50vh] sm:h-[60vh] md:h-[80vh] my-5">
                 <img className="w-full h-full object-cover rounded-md" src={`https://i.ibb.co/Y8KP3wD/Rectangle-4288.jpg`} />
                 <div className="absolute h-[20%] bottom-0 left-0 right-0 bg-[#0b0b0b80] flex justify-start items-center rounded-b-md p-6">
@@ -44,3 +52,5 @@ const DonationDetails = () => {
 };
 
 export default DonationDetails;
+
+

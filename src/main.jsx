@@ -11,7 +11,7 @@ import Home from './components/Home/Home';
 import Donation from './components/Donation/Donation';
 import Statistics from './components/Statistics/Statistics';
 import DonationDetails from './components/DonationDetails/DonationDetails';
-import LocalStore from './components/LocalStore/LocalStore';
+
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/donation",
+        loader: () => fetch("https://raw.githubusercontent.com/MahdiGreen75/all-data/main/allData.json"),
         element: <Donation></Donation>
       },
       {

@@ -1,20 +1,20 @@
-const getStoredData = (key) => {
-    const storedData = localStorage.getItem(key);
+const getStoredData = () => {
+    const storedData = localStorage.getItem("donateKey");
     if(storedData) {
         return JSON.parse(storedData);
     }
     return [];
 }
 
-const saveDataToLocalStorage = (key, value) => {
+const saveDataToLocalStorage = (value) => {
     const idStringified = JSON.stringify(value);
-    localStorage.setItem(key, idStringified)
+    localStorage.setItem("donateKey", idStringified)
 }
 
-const addToLocalStorage = (key, value) => {
-    const dataFromLocalStorage = getStoredData(key);
+const addToLocalStorage = (value) => {
+    const dataFromLocalStorage = getStoredData();
     dataFromLocalStorage.push(value);
-    saveDataToLocalStorage(key, value);
+    saveDataToLocalStorage(dataFromLocalStorage);
 }
 
-export {saveDataToLocalStorage, addToLocalStorage};
+export {saveDataToLocalStorage, addToLocalStorage, getStoredData};
