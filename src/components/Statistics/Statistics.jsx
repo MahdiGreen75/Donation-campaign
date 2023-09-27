@@ -49,7 +49,7 @@ const Statistics = () => {
 
     return (
         <div>
-            <div className="w-96 mx-auto mt-20">
+            <div className="w-60 mx-auto mt-20">
                 <PieChart chartData={userData}></PieChart>
             </div>
             <div className="text-center my-5">
