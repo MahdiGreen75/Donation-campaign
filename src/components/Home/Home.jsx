@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import HomepageCard from "../HomepageCard/HomepageCard";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 
 

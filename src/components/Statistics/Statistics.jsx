@@ -1,78 +1,61 @@
 import { useLoaderData } from "react-router-dom";
 import { getStoredData } from "../../utilites/localStorage";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import PieChart from "./PieChart";
+import { UserData } from "./userData"
+import { useState } from "react";
 
 const Statistics = () => {
     const routeData = JSON.parse(useLoaderData());
     const localStorageData = getStoredData();
+   
+    const [userData, setUserData] = useState({
+        labels: UserData.map((data) => data.userGain),
+        datasets: [{
+            label: "Users Gained",
+            data: UserData.map((data) => data.year),
+            backgroundColor: ["green", "blue"]
+        }]
+    });
 
-    //Total amount price
-    let totalAmount = 0;
-    for (let key of routeData) {
-        totalAmount += Number(key.price);
-    }
 
-    let filtered = {};
-    for (let i of localStorageData) {
-        for (let j of routeData) {
-            if (i === j.id) {
-                filtered[i] = j;
-            }
-        }
-    }
-    const storedData = Object.values(filtered);
 
-    //Total donation amount
-    let totalDonation = 0;
-    for (let key of storedData) {
-        totalDonation += Number(key.price);
-    }
+     //Total amount price
+     let totalAmount = 0;
+     for (let key of routeData) {
+         totalAmount += Number(key.price);
+     }
 
-    //pie chart
-    const data = [
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group D', value: 200 },
-    ];
+     let filtered = {};
+     for (let i of localStorageData) {
+         for (let j of routeData) {
+             if (i === j.id) {
+                 filtered[i] = j;
+             }
+         }
+     }
+     const storedData = Object.values(filtered);
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+     //Total donation amount
+     let totalDonation = 0;
+     for (let key of storedData) {
+         totalDonation += Number(key.price);
+     }
 
-    const RADIAN = Math.PI / 180;
-    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+     const yourDonation = (totalDonation / totalAmount) * 100;
+     const restTotal = 100 - yourDonation;
 
-        return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)}%`}
-            </text>
-        );
-    };
 
+    //pie chart data
 
     return (
         <div>
-            <ResponsiveContainer width="100%" height="100%">
-                <PieChart width={400} height={400}>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                    >
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                </PieChart>
-            </ResponsiveContainer>
-
+            <div className="w-96 mx-auto mt-20">
+                <PieChart chartData={userData}></PieChart>
+            </div>
+            <div className="text-center my-5">
+                <h1 className="text-blue-600 font-bold text-xl">Your Donation is: {+yourDonation.toFixed(1)} %</h1>
+                <h1 className="text-green-600 font-bold text-xl">Total Donation is: {+restTotal.toFixed(1)} %</h1>
+            </div>
         </div>
     );
 };
