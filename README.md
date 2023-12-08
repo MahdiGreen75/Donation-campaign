@@ -7,7 +7,8 @@
 
 This project is a web application built using React.js, React Router, and Tailwind CSS. It features local storage for data persistence and includes a powerful search functionality implemented using state management.
 
-## Features
+## Live Link <br/>
+[Click here to visit the site](https://standing-minister.surge.sh/)
 
 ### 1. React.js
 
